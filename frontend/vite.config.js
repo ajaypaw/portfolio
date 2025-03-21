@@ -2,6 +2,8 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
+const apiUrl = process.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
@@ -16,9 +18,9 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:5000',
+        target: apiUrl,
         changeOrigin: true,
-        secure: false,
+        secure: true,
         rewrite: (path) => path,  // Don't rewrite paths
         configure: (proxy, _options) => {
           proxy.on('error', (err, _req, _res) => {
