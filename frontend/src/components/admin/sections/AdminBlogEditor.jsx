@@ -303,7 +303,7 @@ const BlogPostForm = ({ isEditing = false }) => {
           if (post.featuredImage) {
             const imageUrl = post.featuredImage.startsWith('http') 
               ? post.featuredImage 
-              : `${api.defaults.baseURL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}${post.featuredImage}`;
+              : `${api.defaults.baseURL || import.meta.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'}${post.featuredImage}`;
             setFormData({ ...formData, coverImagePreview: imageUrl });
           }
           
