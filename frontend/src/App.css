@@ -1,0 +1,52 @@
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Animated Background */
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Add a subtle gradient overlay to ensure text is readable over the 3D background */
+.glass-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+}
+
+/* Make sure sections are more visible over the animated background */
+section {
+  position: relative;
+}
+
+section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+  z-index: -1;
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+} 
