@@ -17,11 +17,11 @@ const BlogPost = () => {
     
     // If path starts with '/uploads/', ensure we add the API base URL
     if (path.startsWith('/uploads/')) {
-      return `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${path}`;
+      return `${import.meta.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'}${path}`;
     }
     
     // Otherwise, assume it's a relative path from API
-    return `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}/uploads/${path}`;
+    return `${import.meta.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'}/uploads/${path}`;
   };
 
   useEffect(() => {
