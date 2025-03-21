@@ -10,11 +10,11 @@ const getImageUrl = (path) => {
   
   // If path starts with '/uploads/', ensure we add the API base URL
   if (path.startsWith('/uploads/')) {
-    return `${api.defaults.baseURL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}${path}`;
+    return `${api.defaults.baseURL || import.meta.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'}${path}`;
   }
   
   // Otherwise, assume it's a relative path from API
-  return `${api.defaults.baseURL || import.meta.env.VITE_API_URL || 'http://localhost:5000'}/uploads/${path}`;
+  return `${api.defaults.baseURL || import.meta.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'}/uploads/${path}`;
 };
 
 const BlogList = () => {
