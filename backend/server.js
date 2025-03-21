@@ -101,6 +101,10 @@ app.get('/debug', (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+    res.send("Server is working!");
+});
+
 // Special debug route for auth endpoints
 app.get('/api/auth/debug', (req, res) => {
   res.json({
