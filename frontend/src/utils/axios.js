@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Determine the base URL from env variable with a fallback
-const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const apiBaseUrl =  'https://ajay-portfolio-017w.onrender.com';
 
 // Initialize API with debugging helpers
 const api = axios.create({
