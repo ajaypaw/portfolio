@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // Determine the base URL from env variable with a fallback
-const apiBaseUrl =  'https://ajay-portfolio-017w.onrender.com';
 
+const apiBaseUrl = process.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'
 // Initialize API with debugging helpers
 const api = axios.create({
   baseURL: apiBaseUrl,  // No /api suffix here, will be included in route paths
