@@ -266,7 +266,7 @@ app.use((err, req, res, next) => {
 });
 
 // Server startup
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ajaypawar113307:0wi6QMAeKa4G2tYI@cluster0.2za6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
   .then(async () => {
     console.log('MongoDB connected');
     
