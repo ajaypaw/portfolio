@@ -1,14 +1,15 @@
 import axios from 'axios';
 
-// Determine the base URL from env variable with a fallback
+// Determine the base URL from env variable with a fallback to the Render deployment
+const apiBaseUrl = import.meta.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com';
 
-const apiBaseUrl = process.env.VITE_API_URL || 'https://ajay-portfolio-017w.onrender.com'
 // Initialize API with debugging helpers
 const api = axios.create({
   baseURL: apiBaseUrl,  // No /api suffix here, will be included in route paths
   headers: {
     'Content-Type': 'application/json',
   },
+  // withCredentials is disabled for now to avoid CORS issues with the Render backend
   withCredentials: false,
 });
 
