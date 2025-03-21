@@ -39,9 +39,9 @@ export default defineConfig({
         },
       },
       '/uploads': {
-        target: 'http://localhost:5000',
+        target: apiUrl,
         changeOrigin: true,
-        secure: false,
+        secure: true,
       }
     }
   },
