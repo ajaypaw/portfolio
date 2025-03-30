@@ -5,6 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import { rateLimit } from 'express-rate-limit';
 import { initAdminUser } from './utils/devHelper.js';
 
 // Import models (to register with MongoDB)
@@ -40,6 +41,21 @@ if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
 }
 
+// Configure rate limiting
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: {
+    status: 429,
+    message: 'Too many requests, please try again later'
+  }
+});
+
+// Apply rate limiting to API routes
+app.use('/api', apiLimiter);
+
 // Middleware
 app.use(cors({
   origin: [
@@ -48,7 +64,8 @@ app.use(cors({
     'http://localhost:5175',
     'http://localhost:5176',
     'http://localhost:5177',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://ajay-portfolios.onrender.com'
   ],
   credentials: true
 }));
@@ -99,10 +116,6 @@ app.get('/debug', (req, res) => {
       blog: ['/blog/*', '/api/blog/*']
     }
   });
-});
-
-app.get("/", (req, res) => {
-    res.send("Server is working!");
 });
 
 // Special debug route for auth endpoints
@@ -246,15 +259,7 @@ app.post('/direct-login', async (req, res) => {
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Routes - new standard endpoints without /api prefix
-app.use('/auth', authRoutes);
-app.use('/projects', projectRoutes);
-app.use('/skills', skillRoutes);
-app.use('/achievements', achievementRoutes);
-app.use('/contact', contactRoutes);
-app.use('/blog', blogRoutes);
-
-// Routes - backward compatibility with /api prefix
+// Routes - standardize on /api prefix for all endpoints
 app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/skills', skillRoutes);
@@ -270,7 +275,7 @@ app.use((err, req, res, next) => {
 });
 
 // Server startup
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://ajaypawar113307:0wi6QMAeKa4G2tYI@cluster0.2za6y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/portfolio')
   .then(async () => {
     console.log('MongoDB connected');
     
